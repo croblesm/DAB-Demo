@@ -1,0 +1,44 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/download/v0.5.35/dab.draft.schema.json",
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "Server=172.17.0.2,1433;Database=HumanResources;User ID=SA;Password=_SqLr0ck5_;TrustServerCertificate=true"
+  },
+  "mssql": {
+    "set-session-context": true
+  },
+  "runtime": {
+    "rest": {
+      "enabled": true,
+      "path": "/api"
+    },
+    "graphql": {
+      "allow-introspection": true,
+      "enabled": true,
+      "path": "/graphql"
+    },
+    "host": {
+      "mode": "development",
+      "authentication": {
+        "provider": "Simulator"
+      }
+    }
+  },
+  "entities": {
+    "Employee": {
+      "source": {
+        "type": "table",
+        "object": "dbo.employee"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["*"]
+        }
+      ],
+      "rest": {
+        "path": "/employee"
+      }
+    }
+  }
+}
