@@ -61,3 +61,14 @@ curl -s 'http://localhost:5001/api/Book?$first=2&$orderby=id' | jq
 
 # Testing DAB API with GraphQL
 curl -X POST -H "Content-Type: application/json" -d '{"query": "{ books(first: 2, orderBy: {id: ASC}) { items { id title } } }"}' http://localhost:5001/graphql | jq
+
+
+# Using docker compose
+SA_PASSWORD=1LuvD3v_ docker-compose up -d
+
+# Destroying containers
+docker-compose down -v
+
+# Testing DAB API
+curl -s http://localhost:5001/api/Book | jq
+curl -s http://localhost:5001/api/Author | jq

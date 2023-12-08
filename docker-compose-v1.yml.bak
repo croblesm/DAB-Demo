@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  sql-library:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    hostname: SQL-Library
+    container_name: SQL-Library
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: 1LuvD3v_
+    ports:
+      - "1401:1433"
+    networks:
+      - library-network
+    restart: unless-stopped
+
+  dab-library:
+    image: mcr.microsoft.com/azure-databases/data-api-builder:latest
+    container_name: DAB-Library
+    volumes:
+      - "./DAB-Config:/App/configs"
+    ports:
+      - "5001:5000"
+    env_file:
+      - "./DAB-Config/.env"
+    networks:
+      - library-network
+    depends_on:
+      - sql-library
+    restart: unless-stopped
+
+networks:
+  library-network:
+    driver: bridge
