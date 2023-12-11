@@ -5,14 +5,14 @@ docker network create library-network
 docker run \
     --hostname SQL-Library \
     --name SQL-Library \
-    --env 'ACCEPT_EULA=Y' --env 'MSSQL_SA_PASSWORD=1LuvD3v_' \
+    --env 'ACCEPT_EULA=Y' --env 'MSSQL_SA_PASSWORD=P@ssw0rd!' \
     --publish 1401:1433 \
     --network library-network \
     --platform linux/amd64 \
     --detach mcr.microsoft.com/mssql/server:2019-latest
 
 # SQLCMD env variable - SA password
-# export SQLCMDPASSWORD="1LuvD3v_"; 
+# export SQLCMDPASSWORD=P@ssw0rd! 
 
 # Connect and execute queries (no SA exposed)
 sqlcmd -S localhost,1401 -U SA -h -1 -Q "SET NOCOUNT ON; SELECT name from sys.databases;" -C
@@ -64,7 +64,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"query": "{ books(first: 2
 
 
 # Using docker compose
-SA_PASSWORD=1LuvD3v_ docker-compose up -d
+SA_PASSWORD=P@ssw0rd! docker-compose up -d
 
 # Destroying containers
 docker-compose down -v
