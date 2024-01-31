@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   library-db:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+    image: mcr.microsoft.com/mssql/server:2022-latest
     platform: linux/amd64
     hostname: SQL-Library
     container_name: SQL-Library
@@ -21,7 +21,7 @@ services:
       start_period: 10s
       timeout: 3s
 
-  config-db:
+  library-db-setup:
     image: sqlcmd-go-scratch
     platform: linux/amd64
     hostname: SQL-Config
@@ -48,7 +48,7 @@ services:
     networks:
       - library-network
     depends_on:
-      - config-db
+      - library-db-setup
     command: ["--ConfigFileName", "/App/configs/dab-config.json"]
     restart: unless-stopped
 
