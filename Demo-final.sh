@@ -72,3 +72,6 @@ docker-compose down -v
 # Testing DAB API
 curl -s http://localhost:5001/api/Book | jq
 curl -s http://localhost:5001/api/Author | jq
+
+# Docker compose diagram
+docker run --rm -it --name dcv -v .:/input pmsipilot/docker-compose-viz render -m image --force docker-compose.yml --output-file=topology.png
