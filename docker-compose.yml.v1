@@ -22,10 +22,12 @@ services:
       timeout: 3s
 
   config-db:
-    image: sqlcmd-go-scratch
+    image: mcr.microsoft.com/mssql/server:2019-latest
     platform: linux/amd64
     hostname: SQL-Config
     container_name: SQL-Config
+    environment:
+      ACCEPT_EULA: Y
     volumes:
       - ./Scripts:/docker-entrypoint-initdb.d
     networks:
@@ -33,7 +35,12 @@ services:
     depends_on:
       library-db:
         condition: service_healthy
-    command: sqlcmd -S SQL-Library -U sa -P ${SA_PASSWORD} -d master -i docker-entrypoint-initdb.d/library.azure-sql.sql -e -r1
+    command: >
+      bash -c '
+      /opt/mssql-tools/bin/sqlcmd -S SQL-Library -U sa -P ${SA_PASSWORD} -d master -i docker-entrypoint-initdb.d/library.azure-sql.sql -e -r1;
+      echo "Script execution done!";
+      '
+    restart: unless-stopped
 
   library-api:
     image: mcr.microsoft.com/azure-databases/data-api-builder:latest
