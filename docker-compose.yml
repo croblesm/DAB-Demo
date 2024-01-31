@@ -48,7 +48,7 @@ services:
     networks:
       - library-network
     depends_on:
-      - library-db
+      - config-db
     command: ["--ConfigFileName", "/App/configs/dab-config.json"]
     restart: unless-stopped
 

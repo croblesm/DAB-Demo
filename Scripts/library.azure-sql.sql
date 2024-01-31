@@ -207,5 +207,5 @@ where
     concat(a.first_name, ' ', a.last_name) like @authorSearchString
 );
 go
-PRINT "Script execution done!";
+PRINT 'Script execution done!';
 go
