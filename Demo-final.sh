@@ -51,7 +51,7 @@ curl -s 'http://localhost:5001/api/Book?$first=2' | jq '.value[] | {id, title}'
 curl -s http://localhost:5001/api/Author | jq '.value[1] | {id, first_name, last_name}'
 
 # Testing DAB API with jq and filter
-# From brower
+# From browser
 http://localhost:5001/api/Book?$first=2&$orderby=id
 http://localhost:5001/api/Book?$first=2&$orderby=id desc
 
@@ -64,10 +64,10 @@ curl -X POST -H "Content-Type: application/json" -d '{"query": "{ books(first: 2
 
 
 # Using docker compose
-SA_PASSWORD=P@ssw0rd! docker-compose up -d
+SA_PASSWORD=P@ssw0rd! docker compose up -d
 
 # Destroying containers
-docker-compose down -v
+docker compose down -v
 
 # Testing DAB API
 curl -s http://localhost:5001/api/Book | jq

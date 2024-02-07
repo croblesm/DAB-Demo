@@ -3,6 +3,7 @@ version: '3.8'
 services:
   library-db:
     image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
     hostname: SQL-Library
     container_name: SQL-Library
     environment:
@@ -22,6 +23,7 @@ services:
 
   library-db-setup:
     image: sqlcmd-go-scratch
+    platform: linux/amd64
     hostname: SQL-Config
     container_name: SQL-Config
     volumes:
@@ -35,6 +37,7 @@ services:
 
   library-api:
     image: mcr.microsoft.com/azure-databases/data-api-builder:latest
+    platform: linux/amd64
     container_name: DAB-Library
     volumes:
       - "./DAB-Config:/App/configs"
